@@ -1,0 +1,83 @@
+<h1>Task-Manager by AngularJS</h1>
+
+<div ng-controller='MainCtrl'>
+
+    <!-- タスク内容 -->
+    <input type="text" ng-model="content" ng-keyup="addTask()">
+    <!-- 重要度 -->
+    <select ng-model="priority">
+      <option value="A">A</option>
+      <option value="B">B</option>
+      <option value="C">C</option>
+      <option value="-">-</option>
+    </select>
+
+    <div id="task_list">
+      <h3>Task List</h3>
+      <ul>
+        <li class="task" draggable="true" ng-repeat="task in task_list track by $index" ng-dblclick="toggleEditMode()">
+          <div class="view">
+            <input type="checkbox" ng-model="task.completed" ng-change="toggleTaskStatus()">
+            <span class="task-{{task.completed}}">
+              [{{task.priority}}]
+              {{task.content}}
+              <span ng-if="task.updatedAt">（更新日時：{{task.updatedAt}}）</span>
+              <span ng-if="task.updatedAt == undefined">（作成日時：{{task.createdAt}}）</span>
+            </span>
+            <button ng-click="deleteTask(task.id)">×</button>
+          </div>
+          <div class="edit">
+            <input type="text" ng-model="task.content" ng-keyup="finishEditMode(task)">
+            <select ng-model="task.priority">
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="-">-</option>
+            </select>
+          </div>
+        </li>
+      </ul>
+      <p>残タスク：{{task_list.length}}</p>
+      <h3>Done Task List</h3>
+      <ul>
+        <li ng-repeat="done_task in done_task_list">
+          <input type="checkbox" ng-model="done_task.completed" ng-change="toggleTaskStatus()">
+          <span class="task-{{done_task.completed}}" tooltip>
+            [{{done_task.priority}}]
+            {{done_task.content}}（完了日時：{{done_task.doneAt}}）
+          </span>
+          <button ng-click="deleteTask(done_task.id)">×</button>
+        </li>
+      </ul>
+      <p>完了済みタスク：{{done_task_list.length}}</p>
+    </div>
+    <p>進捗：{{done_task_list.length}}/{{task_list.length + done_task_list.length}}</p>
+
+  <hr />
+  <ul>
+      <li class="task-true">タスクの作成</li>
+      <li class="task-true">タスクの編集</li>
+      <li class="task-true">タスクの削除</li>
+      <li class="task-true">タスクの状態による表示位置切り替え</li>
+      <li class="task-true">完了タスク数の表示</li>
+      <li class="task-true">残タスク数の表示</li>
+      <li class="task-true">タスクの重要度設定</li>
+      <li class="task-true">タスクの重要度変更</li>
+      <li class="task-true">タスクのローカルストレージへの保存</li>
+      <li class="task-true">タスク進捗の表示</li>
+      <li class="task-true">作成日時の保持</li>
+      <li class="task-true">修正日時の保持</li>
+      <li class="task-true">完了日時の保持</li>
+      <li>タスク実施時間の計測 → 何分かかったかを計測する（簡単なストップウォッチ機能）</li>
+      <li>ドラッグ＆ドロップによるタスクの順番変更</li>
+      <li>ドラッグ＆ドロップによるタスクの状態変更(未完了 → 完了、完了 → 未完了)</li>
+      <li>タスク作成時のアニメーション</li>
+      <li>タスク削除時のアニメーション</li>
+      <li>タスク完了時のアニメーション</li>
+      <li>タスクの外部データ出力 → HTML形式、PDF形式などなど</li>
+      <li>テストコード</li>
+  </ul>
+  <pre json>{{task_list | json}}</pre>
+  <pre json>{{done_task_list | json}}</pre>
+
+</div>
