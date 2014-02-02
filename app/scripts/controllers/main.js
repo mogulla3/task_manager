@@ -4,17 +4,11 @@
 // angular.module('taskManagerApp')
 taskManager.controller('MainCtrl', function ($scope) {
     
-    // $scope.priorities = [
-      // {rank:"A"},
-      // {rank:"B"},
-      // {rank:"C"},
-      // {rank:"D"}
-    // ];
-    $scope.priority = "-";
-
     $scope.task_list = [];
     $scope.done_task_list = [];
+    $scope.priority = "-";
 
+    // ローカルストレージからの取得
     if (localStorage.task_list) {
       $scope.task_list = JSON.parse(localStorage.task_list);
     }
@@ -23,23 +17,16 @@ taskManager.controller('MainCtrl', function ($scope) {
       $scope.done_task_list = JSON.parse(localStorage.done_task_list);
     }
 
+    console.log($scope.task_list);
+
     // 現在時刻の取得
     $scope.now = function() {
       var date = new Date();
       return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     };
 
-    // ダミーデータ
-    // $scope.task_list.push(
-      // {'id': 1, 'content': 'AngularJSの学習', 'completed':false, 'createdAt': $scope.now()},
-      // {'id': 2, 'content': '部屋掃除', 'completed':false, 'createdAt': $scope.now()},
-      // {'id': 3, 'content': 'ハッカーと画家を読む', 'completed':false, 'createdAt': $scope.now()},
-      // {'id': 4, 'content': 'cocos2d-xの学習', 'completed':false, 'createdAt': $scope.now()}
-    // );
-
     // タスクをローカルストレージに保存する
     $scope.saveTask = function() {
-      // localStorage.clear();
       localStorage.task_list = JSON.stringify($scope.task_list);
       localStorage.done_task_list = JSON.stringify($scope.done_task_list);
     };

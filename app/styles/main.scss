@@ -102,3 +102,28 @@ li.editing .view {
 li.editing .edit {
   display: block;
 }
+
+
+div#task_list {
+  .ng-enter {
+    -webkit-transition: 0.1s linear all;
+    transition: 0.1s linear all;
+    opacity: 0;
+    font-size:1em;
+  }
+
+  .ng-enter-active {
+    opacity: 1;
+    font-size:2em;
+  }
+
+  .ng-leave {
+    -webkit-transition: 0.5s ease-out all;
+    transition: 0.5s ease-out all;
+  }
+
+  .ng-leave-active {
+    opacity: 0;  
+    height:0px;
+  }
+}
