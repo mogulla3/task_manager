@@ -1,67 +1,172 @@
-<h1>Task-Manager by AngularJS</h1>
-
-<div ng-controller='MainCtrl'>
-
-    <!-- タスク内容 -->
-    <input type="text" ng-model="content" ng-keyup="addTask()">
-    <!-- 重要度 -->
-    <select ng-model="priority">
-      <option value="A">A</option>
-      <option value="B">B</option>
-      <option value="C">C</option>
-      <option value="-">-</option>
-    </select>
-
-    <div id="task_list">
-      <h3>Task List</h3>
-      <ul>
-        <li class="task" draggable="true" ng-repeat="task in task_list track by $index" ng-dblclick="toggleEditMode()">
-          <div class="view">
-            <input type="checkbox" ng-model="task.completed" ng-change="toggleTaskStatus()">
-            <span class="task-{{task.completed}}">
-              [{{task.priority}}]
-              {{task.content}}
-              <span ng-if="task.updatedAt">（更新日時：{{task.updatedAt}}）</span>
-              <span ng-if="task.updatedAt == undefined">（作成日時：{{task.createdAt}}）</span>
-            </span>
-            <button ng-click="deleteTask(task.id)">×</button>
-          </div>
-          <div class="edit">
-            <input type="text" ng-model="task.content" ng-keyup="finishEditMode(task)">
-            <select ng-model="task.priority">
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="C">C</option>
-              <option value="-">-</option>
-            </select>
-          </div>
-        </li>
-      </ul>
-      <p>残タスク：{{task_list.length}}</p>
-      <h3>Done Task List</h3>
-      <ul>
-        <li ng-repeat="done_task in done_task_list">
-          <input type="checkbox" ng-model="done_task.completed" ng-change="toggleTaskStatus()">
-          <span class="task-{{done_task.completed}}" tooltip>
-            [{{done_task.priority}}]
-            {{done_task.content}}（完了日時：{{done_task.doneAt}}）
-          </span>
-          <button ng-click="deleteTask(done_task.id)">×</button>
-        </li>
-      </ul>
-      <p>完了済みタスク：{{done_task_list.length}}</p>
-    </div>
-    <p>進捗：{{done_task_list.length}}/{{task_list.length + done_task_list.length}}</p>
-
-  <hr />
+<div id="side-menu">
+  <h1>Task Manager</h1>
   <ul>
-      <li class="task-true">タスクの作成</li>
-      <li>タスク実施時間の計測 → 何分かかったかを計測する（簡単なストップウォッチ機能）</li>
-      <li>ドラッグ＆ドロップによるタスクの順番変更</li>
-      <li>ドラッグ＆ドロップによるタスクの状態変更(未完了 → 完了、完了 → 未完了)</li>
-      <li>テストコード</li>
-  </ul>
-  <!-- <pre json>{{task_list | json}}</pre> -->
-  <!-- <pre json>{{done_task_list | json}}</pre> -->
+    <li>
+      <div class="menu-left-line" style="background:#e76e66;"></div>
+      <div class="menu-content"><i class="fa fa-home"></i>HOME</div>
+      <div class="menu-notice"></div>
+    </li>
 
+    <li>
+      <div class="menu-left-line" style="background:#dda56c;"></div>
+      <div class="menu-content"><i class="fa fa-star"></i>FAVORITE</div>
+      <div class="menu-notice"></div>
+    </li>
+
+    <li>
+      <div class="menu-left-line" style="background:#579aaa;"></div>
+      <div class="menu-content"><i class="fa fa-check-square-o"></i>PREVIOUS</div>
+      <div class="menu-notice"></div>
+    </li>
+
+    <li>
+      <div class="menu-left-line" style="background:#695b8e;"></div>
+      <div class="menu-content"><i class="fa fa-bar-chart-o"></i>STATISTICS</div>
+      <div class="menu-notice"></div>
+    </li>
+
+    <li>
+      <div class="menu-left-line" style="background:#B7DAD0;"></div>
+      <div class="menu-content"><i class="fa fa-square-o"></i>CATEGORY-1</div>
+      <div class="menu-notice"></div>
+    </li>
+
+    <li>
+      <div class="menu-left-line" style="background:#B7DAD0;"></div>
+      <div class="menu-content"><i class="fa fa-square-o"></i>CATEGORY-2</div>
+      <div class="menu-notice"></div>
+    </li>
+
+    <li>
+      <div class="menu-left-line" style="background:#B7DAD0;"></div>
+      <div class="menu-content"><i class="fa fa-square-o"></i>CATEGORY-3</div>
+      <div class="menu-notice"></div>
+    </li>
+  </ul>
+</div>
+
+<div id="main-contents">
+  <div ng-controller='MainCtrl'>
+    <!-- <pre json>task_list<br>{{task_list | json}}</pre> -->
+    <!-- <pre json>done_task_list<br>{{done_task_list | json}}</pre> -->
+    
+    <section id="new-task-area">
+      <!-- タスク内容 -->
+      <div id="task-input-field">
+        <input type="text" placeholder="Add Your New Task" ng-model="content" ng-keyup="addTask()">
+      </div>
+
+      <!-- タスク重要度 -->
+      <div id="priority">
+        <span>Priority</span>
+        <select ng-model="priority">
+          <option value="high">High</option>
+          <option value="normal">Normal</option>
+          <option value="low">Low</option>
+          <option value="-">-</option>
+        </select>
+        <span style="margin-left:5px;">Limit Date</span>
+        <input type="date" />
+      </div>
+    </section>
+
+    <section id="task-list">
+      <section id="active-task-list">
+        <h3>Active Tasks</h3>
+        <p>残タスク：{{task_list.length}}</p>
+        <p>完了済みタスク：{{done_task_list.length}}</p>
+        <ul>
+          <li class="active-task" ng-repeat="task in task_list track by $index" ng-dblclick="toggleEditMode()">
+            <!-- タスクのステータス -->
+            <div class="task-status">
+              <input type="checkbox" ng-model="task.completed" ng-change="toggleTaskStatus()">
+            </div>
+            <!-- お気に入り -->
+            <div class="task-favorite"><i class="fa fa-star"></i></div>
+            <!-- タスク内容 -->
+            <div class="task-name task-{{task.completed}}">
+              <div class="view">
+                <span class="task-name-left">
+                  <span>{{task.content}}</span>
+                  <span class="task-createdat" ng-if="task.updatedAt">更新日時：{{task.updatedAt}}</span>
+                  <span class="task-createdat" ng-if="task.updatedAt == undefined">作成日時：{{task.createdAt}}</span>
+                </span>
+                <span class="task-name-right">
+                    <i class="fa fa-times-circle" ng-click="deleteTask(task.id)"></i>
+                </span>
+              </div>
+              <div class="edit">
+                <input type="text" ng-model="task.content" ng-keyup="finishEditMode(task)">
+                <select ng-model="task.priority">
+                  <option value="high">High</option>
+                  <option value="normal">Normal</option>
+                  <option value="low">Low</option>
+                  <option value="-">-</option>
+                </select>
+              </div>
+            </div>
+            <!-- タスク重要度 -->
+            <div class="task-priority">
+              <span class="priority-{{task.priority}}">{{task.priority}}</span>
+            </div>
+            <!-- タスク期日 -->
+            <div class="task-limit">2014.03.01</div>
+          </li>
+
+          <!-- <li class="task" draggable="true" ng-repeat="task in task_list track by $index" ng-dblclick="toggleEditMode()"> -->
+            <!-- <div class="view"> -->
+              <!-- <input type="checkbox" ng-model="task.completed" ng-change="toggleTaskStatus()"> -->
+              <!-- <span class="task-{{task.completed}}"> -->
+                <!-- [{{task.priority}}] -->
+                <!-- {{task.content}} -->
+                <!-- <span ng-if="task.updatedAt">（更新日時：{{task.updatedAt}}）</span> -->
+                <!-- <span ng-if="task.updatedAt == undefined">（作成日時：{{task.createdAt}}）</span> -->
+              <!-- </span> -->
+              <!-- <button ng-click="deleteTask(task.id)">×</button> -->
+            <!-- </div> -->
+            <!-- <div class="edit"> -->
+              <!-- <input type="text" ng-model="task.content" ng-keyup="finishEditMode(task)"> -->
+              <!-- <select ng-model="task.priority"> -->
+                <!-- <option value="A">A</option> -->
+                <!-- <option value="B">B</option> -->
+                <!-- <option value="C">C</option> -->
+                <!-- <option value="-">-</option> -->
+              <!-- </select> -->
+            <!-- </div> -->
+          <!-- </li> -->
+        </ul>
+      </section>
+      <section id="closed-task-list">
+        <h3>Closed Tasks</h3>
+        <ul>
+          <li class="closed-task" ng-repeat="done_task in done_task_list">
+            <!-- タスクのステータス -->
+            <div class="task-status">
+              <input type="checkbox" ng-model="done_task.completed" ng-change="toggleTaskStatus()">
+            </div>
+            <!-- お気に入り -->
+            <div class="task-favorite"><i class="fa fa-star"></i></div>
+            <!-- タスク内容 -->
+            <div class="task-name task-{{done_task.completed}}">
+              <div class="view">
+                <span class="task-name-left">
+                  <span>{{done_task.content}}</span>
+                  <span class="task-createdat">完了日時：{{done_task.doneAt}}</span>
+                </span>
+                <span class="task-name-right">
+                    <i class="fa fa-times-circle" ng-click="deleteTask(done_task.id)"></i>
+                </span>
+              </div>
+            </div>
+            <!-- タスク重要度 -->
+            <div class="task-priority">
+              <span class="priority-{{done_task.priority}}">{{done_task.priority}}</span>
+            </div>
+            <!-- タスク期日 -->
+            <div class="task-limit">2014.03.01</div>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </section>
 </div>

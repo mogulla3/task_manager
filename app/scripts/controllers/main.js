@@ -40,7 +40,7 @@ taskManager.controller('MainCtrl', function ($scope) {
         // -> 実質配列に追加していくだけ。あとはAngularJSがバインディングしてくれる。
         // -> DOM操作が不必要ということ
         $scope.task_list.push({
-            'id': $scope.task_list.length + 1,
+            'id': $scope.genUniqID(),
             'content': $scope.content,
             'completed': false,
             'createdAt': $scope.now(),
@@ -54,6 +54,14 @@ taskManager.controller('MainCtrl', function ($scope) {
         // input要素を空にする
         $scope.content = '';
       }
+    };
+
+    // タスクのIDを生成する
+    $scope.genUniqID = function() {
+      var date = new Date();
+      var time = date.getTime();
+      var random_num = Math.floor(Math.random() * 10000);
+      return random_num.toString() + "-" + time.toString();
     };
 
     // タスクの編集を終わらせる
@@ -94,10 +102,14 @@ taskManager.controller('MainCtrl', function ($scope) {
     // タスクの削除
     $scope.deleteTask = function(id) {
       $scope.task_list.some(function(task, index){
-          if (task.id == id) $scope.task_list.splice(index, 1);
+          if (task.id === id) {
+            $scope.task_list.splice(index, 1);
+          }
       });
       $scope.done_task_list.some(function(task, index){
-          if (task.id == id) $scope.done_task_list.splice(index, 1);
+          if (task.id === id) {
+            $scope.done_task_list.splice(index, 1);
+          }
       });
 
       // ローカルストレージに保存

@@ -9,7 +9,9 @@
     "angular-cookies": "1.2.6",
     "angular-sanitize": "1.2.6",
     "angular-route": "1.2.6",
-    "angular-animate": "~1.2.9"
+    "angular-animate": "~1.2.9",
+    "components-font-awesome": "~4.0.3",
+    "jquery.customSelect": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
