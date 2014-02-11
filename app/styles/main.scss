@@ -62,7 +62,6 @@ div.container {
   div#side-menu {
     width: 239px;
     min-width: 239px;
-    /* padding: 0 12px; */
     background-color: #3B3A3E;
     z-index: 999;
     height: 100%;
@@ -90,6 +89,11 @@ div.container {
           width: 5px;
           height: 100%;
         }
+        div.menu-home     { background:#e76e66; }
+        div.menu-favorite { background:#dda56c; }
+        div.menu-previous { background:#579aaa; }
+        div.menu-stats    { background:#695b8e; }
+        div.menu-category { background:#B7DAD0; }
         div.menu-content {
           margin-left: 10px;
           i {
@@ -216,7 +220,6 @@ div.container {
                   font-size: 120%;
                   color: #696969;
                   &:hover {
-                    /* color: red; */
                     opacity: 0.8;
                   }
                 }
@@ -251,7 +254,6 @@ div.container {
               background: #E4605F;
             }
             span.priority-normal {
-              /* border: 2px solid #0b9875; */
               border: 2px solid #0daf88;
               background: #0FC79A;
             }
@@ -281,99 +283,6 @@ div.container {
           border: 1px solid #ccc;
         }
       }
-
-      // アクティブタスク
-      /* section#active-task-list, section#closed-task-list { */
-        /* margin-bottom: 40px; */
-
-        /* li.active-task, li.closed-task { */
-          /* display: flex; */
-          /* flex-direction: row; */
-          /* border: 1px solid #ccc; */
-          /* background: #fff; */
-          /* margin-bottom: 10px; */
-
-          /* div { */
-            /* text-align: center; */
-            /* border-right: 1px solid #ccc; */
-            /* padding: 7px 10px; */
-            /* &:last-child { */
-              /* border-right: none; */
-            /* } */
-          /* } */
-
-          /* div.task-status { */
-            /* width: 3%; */
-            /* line-height: 2.5; */
-          /* } */
-
-          /* div.task-favorite { */
-            /* width: 3%; */
-            /* line-height: 2.5; */
-            /* border-right: none; */
-            /* color: #ffbf00; */
-          /* } */
-
-          /* div.task-name { */
-            /* width: 72%; */
-            /* font-weight: bold; */
-            /* text-align: left; */
-            /* div.view { */
-              /* text-align: left; */
-              /* border-right: none; */
-              /* padding: 0; */
-            /* } */
-            /* span { */
-              /* display: block; */
-            /* } */
-            /* span.task-createdat { */
-              /* font-size: 65%; */
-              /* color: #696969; */
-              /* font-weight: normal; */
-            /* }  */
-          /* } */
-
-          /* div.task-priority { */
-            /* width: 10%; */
-            /* span { */
-              /* display: block; */
-              /* width: 80%; */
-              /* padding: 2px 1px; */
-              /* font-size: 80%; */
-              /* border-radius: 3px; */
-              /* font-weight: bold; */
-              /* margin: 6px auto 0; */
-              /* color: #fff; */
-              /* border: 2px solid #888888; */
-              /* background: #b9b9b9; */
-            /* } */
-            /* span.priority-high { */
-              /* border: 2px solid #E35757; */
-              /* background: #E4605F; */
-            /* } */
-            /* span.priority-normal { */
-              /* [> border: 2px solid #0b9875; <] */
-              /* border: 2px solid #0daf88; */
-              /* background: #0FC79A; */
-            /* } */
-            /* span.priority-low { */
-              /* border: 2px solid #2482ed; */
-              /* background: #4897F0; */
-            /* } */
-          /* } */
-
-          /* div.task-limit { */
-            /* width: 12%; */
-            /* line-height: 3; */
-            /* color: #696969; */
-            /* font-size: 90%; */
-          /* } */
-        /* } */
-      /* } */
-
-      // クローズドタスク
-      /* section#closed-task-list { li.closed-task { } } */
-
     }
   }
 }

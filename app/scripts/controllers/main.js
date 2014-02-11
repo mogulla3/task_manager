@@ -199,12 +199,3 @@ taskManager.controller('MainCtrl', function ($scope) {
     // });
 
 });
-
-
-// 2つ目のコントローラ
-// angular.module('taskManagerApp')
-// .controller('SubCtrl', function ($scope) {
-
-// $scope.hello = 'sub hello';
-
-// });

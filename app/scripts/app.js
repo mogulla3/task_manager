@@ -5,7 +5,8 @@ var taskManager = angular.module('taskManagerApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
-    'ngAnimate'
+    'ngAnimate',
+    'ui.bootstrap'
 ]);
 
 taskManager.config(function ($routeProvider) {
