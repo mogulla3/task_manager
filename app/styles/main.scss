@@ -77,30 +77,95 @@ div.container {
     ul {
       padding: 0;
       li {
-        color: #D5D6D8;
+        position: relative;
         list-style-type: none;
         display: flex;
         flex-direction: row;
         height: 60px;
-        div {
-          margin: auto 0;
-        }
+          div {
+            margin: auto 0;
+          }
+          div.menu-left-line {
+            width: 5px;
+            height: 100%;
+          }
+          div.menu-content {
+            margin-left: 10px;
+            a {
+              color: #D5D6D8;
+              text-decoration: none;
+            }
+            i {
+              margin-right: 10px;
+            }
+          }
+          div.menu-notice {
+            position: absolute;
+            right: 10px;
+            top: 17px;
+            padding: 0;
+            margin: auto 0;
+            span {
+              display: block;
+              min-width: 14px;
+              min-height: 14px;
+              background: #ff0000;
+              color: #fff;
+              border-radius: 20px;
+              font-size: 60%;
+              padding: 3px;
+              text-align: center;
+            }
+          }
+      }
+      li.menu-home { 
         div.menu-left-line {
-          width: 5px;
-          height: 100%;
+          background: #e76e66;
         }
-        div.menu-home     { background:#e76e66; }
-        div.menu-favorite { background:#dda56c; }
-        div.menu-previous { background:#579aaa; }
-        div.menu-stats    { background:#695b8e; }
-        div.menu-category { background:#B7DAD0; }
-        div.menu-content {
-          margin-left: 10px;
-          i {
-            margin-right: 10px;
+        a {
+          &:hover {
+            color: #e76e66;
           }
         }
-        div.menu-notice {
+      }
+      li.menu-favorite { 
+        div.menu-left-line {
+          background:#dda56c;
+        }
+        a {
+          &:hover {
+            color: #dda56c;
+          }
+        }
+      }
+      li.menu-previous { 
+        div.menu-left-line {
+          background:#579aaa;
+        }
+        a {
+          &:hover {
+            color :#579aaa;
+          }
+        }
+      }
+      li.menu-stats { 
+        div.menu-left-line {
+          background: #695b8e;
+        }
+        a {
+          &:hover {
+            color :#695b8e;
+          }
+        }
+      }
+      li.menu-category { 
+        div.menu-left-line {
+          background: #B7DAD0;
+        }
+        a {
+          &:hover {
+            color: #B7DAD0;
+          }
         }
       }
     }
